@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxTableExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="Microsoft.Dynamics.AX.Metadata.V1">
+  <Name>CustTable.AKCustTableExtensions</Name>
+  <Fields>
+    <AxTableField xmlns=""
+                  i:type="AxTableFieldString">
+      <Name>AK_Nasa</Name>
+      <ExtendedDataType>AKNasa</ExtendedDataType>
+      <HelpText>Nasa field for customer record</HelpText>
+      <Label>Nasa</Label>
+      <StringSize>60</StringSize>
+    </AxTableField>
+  </Fields>
+  <FieldGroups>
+    <AxTableFieldGroup>
+      <Name>AKCustomFields</Name>
+      <Label>Custom Fields</Label>
+      <Fields>
+        <AxTableFieldGroupField>
+          <DataField>AK_Nasa</DataField>
+        </AxTableFieldGroupField>
+      </Fields>
+    </AxTableFieldGroup>
+  </FieldGroups>
+</AxTableExtension>

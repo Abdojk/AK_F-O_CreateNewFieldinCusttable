@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxDataEntityViewExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+                           xmlns="Microsoft.Dynamics.AX.Metadata.V1">
+  <Name>CustCustomerV3Entity.AKCustTableExtensions</Name>
+  <Fields>
+    <AxDataEntityViewField>
+      <Name>AK_Nasa</Name>
+      <DataField>AK_Nasa</DataField>
+      <DataSource>CustTable</DataSource>
+      <Label>Nasa</Label>
+      <HelpText>Nasa field for customer record</HelpText>
+    </AxDataEntityViewField>
+  </Fields>
+</AxDataEntityViewExtension>

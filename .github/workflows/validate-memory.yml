@@ -1,0 +1,99 @@
+name: Validate CLAUDE.MD Memory File
+
+on:
+  push:
+    paths:
+      - 'CLAUDE.MD'
+      - 'src/**'
+  pull_request:
+    paths:
+      - 'CLAUDE.MD'
+      - 'src/**'
+
+jobs:
+  validate-memory:
+    runs-on: windows-latest
+    name: Validate CLAUDE.MD
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate CLAUDE.MD exists
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "CLAUDE.MD")) {
+            Write-Error "CLAUDE.MD not found in repository root"
+            exit 1
+          }
+          Write-Host "CLAUDE.MD found" -ForegroundColor Green
+
+      - name: Check required sections
+        shell: pwsh
+        run: |
+          $content = Get-Content "CLAUDE.MD" -Raw
+          $requiredSections = @(
+            "PROJECT IDENTITY",
+            "CURRENT STATE SNAPSHOT",
+            "ARCHITECTURE DECISIONS",
+            "TECHNICAL METADATA",
+            "DEVELOPMENT CONTEXT",
+            "TESTING STRATEGY",
+            "DEPLOYMENT CHECKLIST",
+            "AI ASSISTANT INSTRUCTIONS"
+          )
+
+          $missing = @()
+          foreach ($section in $requiredSections) {
+            if ($content -notmatch [regex]::Escape($section)) {
+              $missing += $section
+            }
+          }
+
+          if ($missing.Count -gt 0) {
+            Write-Error "Missing sections in CLAUDE.MD: $($missing -join ', ')"
+            exit 1
+          }
+
+          Write-Host "All required sections present" -ForegroundColor Green
+
+      - name: Validate metadata file references
+        shell: pwsh
+        run: |
+          $content = Get-Content "CLAUDE.MD" -Raw
+          $warnings = @()
+
+          $xmlFiles = Get-ChildItem -Path "src" -Filter "*.xml" -Recurse -ErrorAction SilentlyContinue |
+            Where-Object { $_.Directory.Name -match "^Ax" }
+
+          foreach ($file in $xmlFiles) {
+            if ($content -notmatch [regex]::Escape($file.BaseName)) {
+              $warnings += $file.BaseName
+            }
+          }
+
+          if ($warnings.Count -gt 0) {
+            Write-Warning "The following metadata objects are not referenced in CLAUDE.MD:"
+            $warnings | ForEach-Object { Write-Warning "  - $_" }
+            Write-Host ""
+            Write-Host "Consider updating CLAUDE.MD to include these objects." -ForegroundColor Yellow
+          } else {
+            Write-Host "All metadata objects referenced in CLAUDE.MD" -ForegroundColor Green
+          }
+
+      - name: Check timestamp freshness
+        shell: pwsh
+        run: |
+          $content = Get-Content "CLAUDE.MD" -Raw
+          if ($content -match '\*\*Last Updated\*\*:\s*(\d{4}-\d{2}-\d{2})') {
+            $lastUpdated = [DateTime]::Parse($Matches[1])
+            $daysSinceUpdate = ((Get-Date) - $lastUpdated).Days
+
+            if ($daysSinceUpdate -gt 90) {
+              Write-Warning "CLAUDE.MD has not been updated in $daysSinceUpdate days. Consider refreshing."
+            } else {
+              Write-Host "CLAUDE.MD last updated $daysSinceUpdate days ago - OK" -ForegroundColor Green
+            }
+          } else {
+            Write-Warning "Could not find 'Last Updated' timestamp in CLAUDE.MD"
+          }
