@@ -22,18 +22,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="AxDataEntityView" />
+    <Folder Include="AxDataEntityViewExtension" />
     <Folder Include="AxEdt" />
     <Folder Include="AxEnum" />
-    <Folder Include="AxForm" />
-    <Folder Include="AxTable" />
+    <Folder Include="AxFormExtension" />
     <Folder Include="AxTableExtension" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AxEdt\AKNasa.xml" />
-    <Content Include="AxTable\CustTable.AKCustTableExtensions.xml" />
-    <Content Include="AxForm\CustTable.AKCustTableExtensions.xml" />
-    <Content Include="AxDataEntityView\CustCustomerV3Entity.AKCustTableExtensions.xml" />
+    <Content Include="AxTableExtension\CustTable.AKCustTableExtensions.xml" />
+    <Content Include="AxFormExtension\CustTable.AKCustTableExtensions.xml" />
+    <Content Include="AxDataEntityViewExtension\CustCustomerV3Entity.AKCustTableExtensions.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Dynamics\AX\GenerateXppRuntime.targets" />
 </Project>
