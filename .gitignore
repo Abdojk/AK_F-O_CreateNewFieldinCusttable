@@ -1,0 +1,34 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+
+# D365 F&O Specific
+*.axpp
+Packages/
+*.xpp.bak
+*.xml.bak
+XppMetadata/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+
+# NEVER ignore CLAUDE.MD
+!CLAUDE.MD
+
+# NEVER ignore scripts
+!scripts/

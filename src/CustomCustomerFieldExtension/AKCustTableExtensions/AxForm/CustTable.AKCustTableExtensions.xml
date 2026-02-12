@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns="Microsoft.Dynamics.AX.Metadata.V1">
+  <Name>CustTable.AKCustTableExtensions</Name>
+  <ExtensionComponents>
+    <AxFormExtensionComponent>
+      <Name>AKCustomFieldsGroup</Name>
+      <ExtendedControls>
+        <AxFormExtensionControl i:type="AxFormGroupControl">
+          <Name>AKCustomFieldsGroup</Name>
+          <AutoDeclaration>Yes</AutoDeclaration>
+          <Caption>Custom Fields</Caption>
+          <FormControlExtension>
+            <Name>AKCustomFieldsGroup</Name>
+            <ExtensionComponents />
+          </FormControlExtension>
+          <Controls>
+            <AxFormControl i:type="AxFormStringControl">
+              <Name>AK_Nasa</Name>
+              <DataField>AK_Nasa</DataField>
+              <DataSource>CustTable</DataSource>
+              <HelpText>Nasa field for customer record</HelpText>
+              <Label>Nasa</Label>
+            </AxFormControl>
+          </Controls>
+        </AxFormGroupControl>
+      </ExtendedControls>
+      <PropertyModifications>
+        <AxProperty>
+          <Name>Parent</Name>
+          <Value>TabPageGeneral</Value>
+        </AxProperty>
+      </PropertyModifications>
+    </AxFormExtensionComponent>
+  </ExtensionComponents>
+</AxFormExtension>
